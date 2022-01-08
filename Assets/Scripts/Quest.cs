@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Quest : MonoBehaviour
 {
     public GameObject[] chkpoints= new GameObject[5];
     int chkindex = 0;
+
+    public Text tex; //Can this be Prefabed?
     // Start is called before the first frame update
     void Start()
     {
+        tex = GameObject.Find("MissionText").GetComponent<Text>();
         Activate();
     }
 
@@ -35,11 +39,14 @@ public class Quest : MonoBehaviour
     }
 
     public void LoadNextCheckPoint(){
+        
         chkpoints[chkindex].SetActive(false);
         ++chkindex;
         if(chkpoints[chkindex]!=null){ //What happens if it checks an element outside the array length??
+            tex.text = "Deliver the package";
             chkpoints[chkindex].SetActive(true); 
         }else{
+            tex.text = "Well Done!";
             QuestOver();
         }
     }

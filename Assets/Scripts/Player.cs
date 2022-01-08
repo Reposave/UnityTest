@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
         this.GetComponent<CircleCollider2D>().enabled = val;
     }
     private void OnTriggerEnter2D(Collider2D other) {
+        //If you exit a Car when another is next to you, the other car may not be detected thus you can't enter it.
         if(other.tag=="Vehicle"){
             nearVehicle=true;
             Vehiclez = other.GetComponent<Vehicle>();
