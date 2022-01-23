@@ -144,12 +144,27 @@ MonoBehaviour:
   dialogueManager: {fileID: 3260991988947213746, guid: bb53a6745bc1e17478acbfaf79afc9c3, type: 3}
   canva: {fileID: 0}
   cam: {fileID: 0}
+  SpawnedText: 0
   rb: {fileID: 0}
-  dialogue:
-    name: Jane
+  my_name: Carol
+  person_trigger_dialogue:
     sentences:
-    - Hola Amigo
+    - Hi there!
     - Where are you off to?
+  person_collide_dialogue:
+    sentences:
+    - Ouch!
+    - Watch where you're going!
+  vehicle_trigger_dialogue:
+    sentences:
+    - AAAAH!
+    - You almost hit me!
+  vehicle_collide_dialogue:
+    sentences:
+    - Ugh!!
+    - Owww...
+    - my...
+    - head...
 --- !u!50 &374317348
 Rigidbody2D:
   serializedVersion: 4

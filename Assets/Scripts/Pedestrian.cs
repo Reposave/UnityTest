@@ -11,7 +11,8 @@ public class Pedestrian : MonoBehaviour
     public GameObject canva;
     public Camera cam;    // Camera containing the canvas
     // Start is called before the first frame update
-    private bool SpawnedText = false;
+    public bool SpawnedText = false;
+
     GameObject myDialogue;
     GameObject myDialogueManager;
 
@@ -19,7 +20,16 @@ public class Pedestrian : MonoBehaviour
     private float linearDrag = 6f;
     private float mass = 0.01f;
 
-    public Dialogue dialogue;
+    public string my_name;
+
+    public Dialogue person_trigger_dialogue;
+    public Dialogue person_collide_dialogue;
+
+    public Dialogue vehicle_trigger_dialogue;
+    public Dialogue vehicle_collide_dialogue;
+    
+    private bool collision_happened = false;
+    
 
     void Start()
     {
@@ -49,8 +59,7 @@ public class Pedestrian : MonoBehaviour
             //myDialogue.transform.SetParent(canva.transform,false);
         }*/
     }
-
-    private void OnTriggerEnter2D(Collider2D other) {
+    private void CreateDialogue(Dialogue dial){
         if(!SpawnedText){
             SpawnedText = true;
             Vector3 screenPos = cam.WorldToScreenPoint(this.transform.position);
@@ -71,14 +80,47 @@ public class Pedestrian : MonoBehaviour
                 }
             }
             myDialogueManager.GetComponent<DialogueManager>().animator = myDialogue.GetComponent<Animator>();
-            myDialogueManager.GetComponent<DialogueManager>().StartDialogue(dialogue);
+            myDialogueManager.GetComponent<DialogueManager>().StartDialogue(dial,this);
 
             myDialogue.transform.SetParent(canva.transform,false);
             
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.tag == "Player"){
+            StartCoroutine(Counter(person_trigger_dialogue));
+        }
+        else if(other.tag == "Vehicle"){
+            StartCoroutine(Counter(vehicle_trigger_dialogue));
+        }
     }
+    private void OnCollisionEnter2D(Collision2D other) {
+
+        InterruptDialogue();
+
+        if(other.gameObject.tag == "Player"){
+            collision_happened = true;
+            CreateDialogue(person_collide_dialogue);
+        }
+        else if(other.gameObject.tag == "Vehicle"){
+            collision_happened = true;
+            CreateDialogue(vehicle_collide_dialogue);
+        }
+        collision_happened = false;
+    }
+    
+    void InterruptDialogue(){
+        if(SpawnedText == true){
+            myDialogueManager.GetComponent<DialogueManager>().InterruptMe();
+            SpawnedText = false;
+        }
+    }
+
+    IEnumerator Counter(Dialogue dial) { //Waits to see if we triggered only or the player will eventually collide with the pedestrian.
+        yield return new WaitForSeconds(0.4f);
+        if(!collision_happened){
+            CreateDialogue(dial);
+        }
+    }
+
 }

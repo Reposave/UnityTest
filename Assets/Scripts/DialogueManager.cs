@@ -8,6 +8,8 @@ public class DialogueManager : MonoBehaviour
     public Text nameText;
     public Text dialogueText;
 
+    Pedestrian pedest;
+
     public Animator animator;
 
     private Queue<string> sentences; //FIFO
@@ -20,13 +22,15 @@ public class DialogueManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void StartDialogue(Dialogue dialogue) {
+    public void StartDialogue(Dialogue dialogue, Pedestrian ped) {
         sentences = new Queue<string>();
-        Debug.Log("Starting conversation with " + dialogue.name);
+        pedest = ped;
+
+        Debug.Log("Starting conversation with " + ped.my_name);
 
         //animator.SetBool("isOpen", true);
 
-        nameText.text = dialogue.name;
+        nameText.text = ped.my_name;
 
         sentences.Clear(); //removing sentences from previous conversations.
 
@@ -81,9 +85,15 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         DisplayNextSentence();
     }
+    public void InterruptMe(){ //Used to interrupt low priority dialogue.
+        StopAllCoroutines();
+        EndDialogue();
+    }
 
     void EndDialogue() {
         Debug.Log("End of conversation");
         animator.SetBool("isOpen", false);
+        pedest.SpawnedText = false; //Allow spawning of another Manager.
+        Destroy(gameObject);
     }
 }
