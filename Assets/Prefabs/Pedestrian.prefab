@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5484872808715030185}
   - component: {fileID: 5484872808715030184}
   - component: {fileID: 5484872808715030182}
+  - component: {fileID: 374317348}
   m_Layer: 0
   m_Name: Pedestrian
   m_TagString: Untagged
@@ -140,5 +141,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDialogue: {fileID: 2091858566746543712, guid: 9f794ae5b0d3b004585135cdd5bae05c, type: 3}
+  dialogueManager: {fileID: 3260991988947213746, guid: bb53a6745bc1e17478acbfaf79afc9c3, type: 3}
   canva: {fileID: 0}
   cam: {fileID: 0}
+  rb: {fileID: 0}
+  dialogue:
+    name: Jane
+    sentences:
+    - Hola Amigo
+    - Where are you off to?
+--- !u!50 &374317348
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5484872808715030189}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

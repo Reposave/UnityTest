@@ -5,6 +5,10 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - spawnDialogue: {fileID: 2091858566746543712, guid: 9f794ae5b0d3b004585135cdd5bae05c, type: 3}
+  - dialogueManager: {fileID: 3260991988947213746, guid: bb53a6745bc1e17478acbfaf79afc9c3, type: 3}
+  - canva: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - rb: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
